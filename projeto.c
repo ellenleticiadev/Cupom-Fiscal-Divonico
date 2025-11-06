@@ -100,9 +100,24 @@ static void liberarBiblioteca(void)
 
 /* ======================= Funções a serem implementadas pelos alunos ======================= */
 
-static void exibirMenu(void)
+static int exibirMenu(void)
 {
-    // TODO: implementar exibição do menu principal com as opções de impressão
+	int opcao;
+    printf("\n\n\n ============= Menu =============\n");
+        
+        printf("1 - Configurar conexao\n");
+        printf("2 - Abrir Conexao\n");
+        printf("3 - Impressao Texto\n");
+        printf("4 - Impressao QRCode\n");
+        printf("5 - Impressao Cod Barras\n");
+        printf("6 - Impressao XML SAT\n");
+        printf("7 - Impressao XML Canc SAT\n");
+        printf("8 - Abrir Gaveta Elgin\n");
+        printf("9 - Abrir Gaveta\n");
+        printf("10 - Sinal Sonoro\n");
+        printf("0 - Fechar Conexao e Sair\n");
+        scanf("%d", &opcao);
+        return opcao;
 }
 
 static void configurarConexao(void)
@@ -177,6 +192,7 @@ static void emitirSinalSonoro(void)
 /* ======================= Função principal ======================= */
 int main(void)
 {
+	
     if (!carregarFuncoes()) {
         return 1;
     }
@@ -184,10 +200,60 @@ int main(void)
     int opcao = 0;
     while (1) {
         
-        //construir o menu e chamar as funçoes aqui!!!
+        opcao = exibirMenu();
         
-                
-        
+        switch(opcao){
+        	
+        	case 1: //configuração de conexão
+        	printf("Configurar conexao\n");
+        	break;
+        	
+        	case 2: //abrir conexão com a impressora
+        	printf("Abrir Conexao\n");
+        	break;
+        	
+        	case 3: //imprimir o texto
+        	printf("Impressao Texto\n");
+        	break;
+        	
+        	case 4: //imprimir o QRCode
+        	printf("Impressao QRCode\n");
+        	break;
+        	
+        	case 5: //impressão do Cod de Barra
+        	printf("Impressao Cod Barras\n");
+        	break;
+        	
+        	case 6: //impressão do XML SAT
+        	printf("Impressao XML SAT\n");
+        	break;
+        	
+        	case 7: //impressão XML Canc SAT
+        	printf("Impressao XML Canc SAT\n");
+        	break;
+        	
+        	case 8: //configuração para abrir a Gaveta Elgin
+        	printf("Abrir Gaveta Elgin\n");
+        	break;
+        	
+        	case 9: //configuração para abrir gaveta 
+        	printf("Abrir Gaveta\n");
+        	break;
+        	
+        	case 10: //cofiguração de sinal Sonoro
+        	printf("Sinal Sonoro\n");
+        	break;
+        	
+        	case 0: //configuração para fechar a conexão e sai
+        	printf("Fechar Conexao e Sair\n");
+        	return 0;
+        	
+        	default:  // Adicionado: para opções inválidas
+            printf("Opcao invalida! Digite um numero entre 0 e 10.\n");
+            break;
+        	
+		}
+               
     }
 }
 
