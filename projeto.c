@@ -155,7 +155,7 @@ static void abrirConexao(void)
 
 static void fecharConexao(void)
 {
-    printf("\n\nFechar Conexao e Sair\n");
+    printf("\n\nFechando Conexao e Saindo\n");
     return 0;
 }
 
