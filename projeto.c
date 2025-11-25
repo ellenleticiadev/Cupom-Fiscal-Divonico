@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <windows.h>
-
+#include <locale.h>
 //* ======================= Config DLL ======================= */
 static HMODULE g_hDll = NULL;
 
@@ -47,6 +47,7 @@ static char  g_modelo[64] = "i9";
 static char  g_conexao[128] = "USB";
 static int   g_parametro = 0;
 static int   g_conectada = 0;
+char texto[100];
 
 /* ======================= Utilidades ======================= */
 #define LOAD_FN(h, name)                                                         \
@@ -102,20 +103,22 @@ static void liberarBiblioteca(void)
 
 static int exibirMenu(void)
 {
+	
 	int opcao;
-    printf("\n\n\n ============= Menu =============\n");
+    printf("\n\n============== Menu ==============\n\n");
         
-        printf("1 - Configurar conexao\n");//mostrar a opcáo de Configurar conexa
-        printf("2 - Abrir Conexao\n");//mostrar a opcáo de Abrir Conexao
-        printf("3 - Impressao Texto\n");//mostrar a opcáo de Impressao Texto
-        printf("4 - Impressao QRCode\n");//mostrar a opcáo de Impressao QRCode
-        printf("5 - Impressao Cod Barras\n");//mostrar a opcáo de Impressao Cod Barras
-        printf("6 - Impressao XML SAT\n");//mostrar a opcáo de Impressao XML SAT
-        printf("7 - Impressao XML Canc SAT\n");//mostrar a opcáo de Impressao XML Canc SAT
-        printf("8 - Abrir Gaveta Elgin\n");//mostrar a opcáo de Abrir Gaveta Elgin
-        printf("9 - Abrir Gaveta\n");//mostrar a opcáo de Abrir Gaveta Sinal Sonoro
-        printf("10 - Sinal Sonoro\n");//mostrar a opcáo de Sinal Sonoro
-        printf("0 - Fechar Conexao e Sair\n");//mostrar a opcáo de Fechar Conexao e Sair
+        printf(" 1 - Configurar Conexão\n");//mostrar a opcáo de Configurar conexa
+        printf(" 2 - Abrir Conexão\n");//mostrar a opcáo de Abrir Conexao
+        printf(" 3 - Impressão Texto\n");//mostrar a opcáo de Impressao Texto
+        printf(" 4 - Impressão QRCode\n");//mostrar a opcáo de Impressao QRCode
+        printf(" 5 - Impressão Cod Barras\n");//mostrar a opcáo de Impressao Cod Barras
+        printf(" 6 - Impressão XML SAT\n");//mostrar a opcáo de Impressao XML SAT
+        printf(" 7 - Impressão XML Canc SAT\n");//mostrar a opcáo de Impressao XML Canc SAT
+        printf(" 8 - Abrir Gaveta Elgin\n");//mostrar a opcáo de Abrir Gaveta Elgin
+        printf(" 9 - Abrir Gaveta\n");//mostrar a opcáo de Abrir Gaveta Sinal Sonoro
+        printf(" 10 - Sinal Sonoro\n\n");//mostrar a opcáo de Sinal Sonoro
+        printf(" 0 - Fechar Conexão e Sair\n");//mostrar a opcáo de Fechar Conexao e Sair
+        printf("\n==================================\n\n: ");
         scanf("%d", &opcao);//recebe o numero digitado
         return opcao;
 }
@@ -123,62 +126,81 @@ static int exibirMenu(void)
 static void configurarConexao(void)
 {
     // TODO: pedir ao usuário tipo, modelo, conexão e parâmetro
+    
+    system("cls");
 	
-	printf("\nDigite o tipo de conexao (ex: 1 = USB): "); //Solicitamos ao usuario as informações de configuração
+	//Solicitamos ao usuario as informações de configuração
+	printf("\n==================================\n\n Digite o tipo de comunicação\n\n 1	USB\n 2	RS232\n 3	TCP/IP\n 4	Bluetooth\n 5	Impressoras acopladas(Android)\n\n: "); //Solicitamos ao usuario o tipo de comunicação
 	scanf("%d", &g_tipo);
-	printf("Digite o modelo (ex: i7, i8, i9): ");
-	scanf("%s", g_modelo);
-	printf("Digite a conexao (ex: UBS): ");
-	scanf("%s", g_conexao);
-	printf("Digite o parametro (ex: Para conexão com USB, Bluetooth ou Impressoras acopladas digite 0): ");
+	printf("\n==================================\n\n Digite o modelo\n\n i7\n i7 Plus\n i8\n i9\n ix\n Fitpos\n BK-T681\n MP-4200 (Para modelos TH e ADV)\n MP-4200 HS\n MK\n MP-2800\n\n: ");//Solicitamos ao usuario o modelo
+	scanf("%s", &g_modelo);
+	printf("\n==================================\n\n Detalhe de conexão\n\n USB \n RS232		(ex. COM2)\n TCP/IP		(ex. 192.168.0.20)\n Bluetooth	(ex. AA:BB:CC:DD:EE:FF)\n\n: ");//Solicitamos ao usuario o detalhe de conexão
+	scanf("%s", &g_conexao);
+	printf("\n==================================\n\n Digite o parâmetro (Tipo numérico auxiliar para a conexão com a impressora / Conexao via bluetooh ou USB digite 0.)\n\n: ");//Solicitamos ao usuario o digite o parâmetro
 	scanf("%d", &g_parametro);	
 	printf("\n Configuração salva!\n");
+    
+    system("cls");
     
 }
 
 static void abrirConexao(void)
 {
     // TODO: chamar AbreConexaoImpressora e validar retorno
-   if(g_conectada == 1){
-   	printf("\n\nA impressora esta conectada\n");
+    
+    system("cls");
+    
+   if(g_conectada == 1){ // ver se a impressora que esta conectada
+   	printf("\n\n A impressora está conectada\n");
 	} 
 	
-	int ret = AbreConexaoImpressora(g_tipo, g_modelo, g_conexao, g_parametro);
-	if(ret == 0){
-		g_conectada = 1;
-		printf("\n\nConexao estabelecida\n");
+	//variavel recebe todos parametros
+	int ret = AbreConexaoImpressora(g_tipo, g_modelo, g_conexao, g_parametro);//validar a conexão com a impressora
+	if(ret == 0){ //se a conexão esta estabelecida
+		g_conectada = 1; //contados vai ser 1 que mostra q esta conectada
+		printf("\n\n Conexão estabelecida!\n");
 			InicializaImpressora();
 	}  else {
-		printf("\n\nFalha na conexao da impressora, codigo de erro: %d\n", ret);
+		printf("\n\n Falha na conexão da impressora.\n Código de erro: %d\n", ret); //mostrar o erro de conexâo
 	}
 }   
 
 static void fecharConexao(void)
 {
-    printf("\n\nFechando Conexao e Saindo\n");
-    return 0;
+    printf("\n\n Fechando conexão...\n\n");
+
+    if (g_conectada) {
+        FechaConexaoImpressora();
+        g_conectada = 0;
+        printf(" Conexão fechada com sucesso.\n");
+    }
+
+    liberarBiblioteca();  // Libera DLL
+    exit(0);              // Sai do programa corretamente
 }
 
 static void imprimirTexto(void)
 {
-	char texto[100];
-    if(g_conectada == 1){
+
+	system("cls");
+
+    if(g_conectada == 1){ //ver se a impressora que esta conectada
     	
-    	printf("Digite o texto: ");
-    	scanf(" %[^\n]s", texto);
-    	int ret = ImpressaoTexto(texto, 1, 4, 0);
+    	printf(" Digite o texto: ");
+    	scanf(" %[^\n]s", texto); // Lê a linha inteira, incluindo espaços ate o enter
+    	int ret = ImpressaoTexto(texto, 1, 4, 0);//variavel recebe todos parametros
     	
 		AvancaPapel(3);
     	Corte(2);
     	
-    	if(ret == 0){
-    		printf("Impressao OK");
+    	if(ret == 0){ //mostrar se a impressão esta tudo ok
+    		printf(" Impressão OK.");
 		}else{
-			printf("Erro. retorno %d\n", ret);
+			printf(" Erro.\n Retorno: %d\n", ret); //mostrar p redo de impressão
 		}
     	
 	}else{
-		printf("Abra a conexao primeiro");
+		printf("\n Abra a conexão primeiro.");
 	}
     
 }
@@ -187,39 +209,51 @@ static void imprimirTexto(void)
 
 static void imprimirQRCode(void)
 {
-    if(g_conectada == 1){
+	
+	system("cls");
+	
+    if(g_conectada == 1){ //ver se a impressora que esta conectada
     	
-    	int ret = ImpressaoQRCode("Imprimir texto", 6,4);
+    	printf(" Digite o texto: ");
+    	scanf(" %[^\n]s", texto);
+    	
+    	int ret = ImpressaoQRCode(texto, 6,4); //variavel recebe todos parametros
+    	
+    	AvancaPapel(3);
+    	Corte(2);
     	
     	if(ret == 0){
-    		printf("Impressao OK");
+    		printf(" Impressão OK.");
 		}else{
-			printf("Erro. retorno %d\n", ret);
+			printf(" Erro.\n Retorno: %d\n", ret);
 		}
     	
 	}else{
-		printf("Abra a conexao primeiro");
+		printf("\n Abra a conexão primeiro.");
 	}
     
 }
 
 static void imprimirCodigoBarras(void)
 {
-    if(g_conectada == 1){
+	
+	system("cls");
+	
+    if(g_conectada == 1){ //ver se a impressora que esta conectada
     	
-    	int ret = ImpressaoCodigoBarras(8, "{A012345678912", 100, 2, 3);
+    	int ret = ImpressaoCodigoBarras(8, "{A012345678912", 100, 2, 3);//variavel recebe todos parametros
     	AvancaPapel(3);
     	Corte(2);
     	
     	
     	if(ret == 0){
-    		printf("Impressao OK");
+    		printf(" Impressão OK.");
 		}else{
-			printf("Erro. retorno %d\n", ret);
+			printf(" Erro.\n Retorno: %d\n", ret);
 		}
     	
 	}else{
-		printf("Abra a conexao primeiro");
+		printf("\n Abra a conexão primeiro.");
 	}
     
 }
@@ -230,21 +264,23 @@ static void imprimirXMLSAT(void)
 	// TODO: ler o arquivo ./XMLSAT.xml e enviar via ImprimeXMLSAT
     // incluir AvancaPapel e Corte no final
     
-    if(g_conectada == 1){
+    system("cls");
+    
+    if(g_conectada == 1){ //ver se a impressora que esta conectada
     	
-    	int ret = ImprimeXMLSAT("path=C:/Users/giovanna_borba/Desktop/Projeto-cupom_fiscal/C_Aluno/XMLSAT.xml", 0);
+    	int ret = ImprimeXMLSAT("path=XMLSAT.xml", 0);//variavel recebe todos parametros
     	AvancaPapel(3);
     	Corte(2);
     	
     	
     	if(ret == 0){
-    		printf("Impressao OK");
+    		printf(" Impressão OK.");
 		}else{
-			printf("Erro. retorno %d\n", ret);
+			printf(" Erro.\n Retorno: %d\n", ret);
 		}
     	
 	}else{
-		printf("Abra a conexao primeiro");
+		printf("\n Abra a conexão primeiro.");
 	}
     
 }
@@ -263,21 +299,24 @@ static void imprimirXMLCancelamentoSAT(void)
         "YVFCDtYR9Hi5qgdk31v23w==";
         */
         
-    if(g_conectada == 1){
+    system("cls");
+        
+    if(g_conectada == 1){ //ver se a impressora que esta conectada
     	
-    	int ret = ImpressaoCodigoBarras(8, "{A012345678912", 100, 2, 3);
+    	//variavel recebe todos parametros
+    	int ret = ImprimeXMLCancelamentoSAT ("path=CANC_SAT.xml", "Q5DLkpdRijIRGY6YSSNsTWK1TztHL1vD0V1Jc4spo/CEUqICEb9SFy82ym8EhBRZjbh3btsZhF+sjHqEMR159i4agru9x6KsepK/q0E2e5xlU5cv3m1woYfgHyOkWDNcSdMsS6bBh2Bpq6s89yJ9Q6qh/J8YHi306ce9Tqb/drKvN2XdE5noRSS32TAWuaQEVd7u+TrvXlOQsE3fHR1D5f1saUwQLPSdIv01NF6Ny7jZwjCwv1uNDgGZONJdlTJ6p0ccqnZvuE70aHOI09elpjEO6Cd+orI7XHHrFCwhFhAcbalc+ZfO5b/+vkyAHS6CYVFCDtYR9Hi5qgdk31v23w==", 0);
     	AvancaPapel(3);
     	Corte(2);
     	
     	
     	if(ret == 0){
-    		printf("Impressao OK");
+    		printf(" Impressão OK.");
 		}else{
-			printf("Erro. retorno %d\n", ret);
+			printf(" Erro.\n Retorno: %d\n", ret);
 		}
     	
 	}else{
-		printf("Abra a conexao primeiro");
+		printf("\n Abra a conexão primeiro.");
 	}
     
     //
@@ -288,21 +327,20 @@ static void abrirGavetaElginOpc(void)
 {
     // TODO: chamar AbreGavetaElgin(1, 50, 50)
     
-   if(g_conectada == 1){
+	system("cls");
+    
+	if(g_conectada == 1){ //ver se a impressora que esta conectada
     	
-    	int ret = ImpressaoCodigoBarras(8, "{A012345678912", 100, 2, 3);
-    	AvancaPapel(3);
-    	Corte(2);
-    	
+    	int ret = AbreGaveta (1, 50, 50);//variavel recebe todos parametros
     	
     	if(ret == 0){
-    		printf("Impressao OK");
+    		printf(" Gaveta aberta.");
 		}else{
-			printf("Erro. retorno %d\n", ret);
+			printf(" Erro ao abrir gaveta. Retorno: %d\n", ret);
 		}
     	
 	}else{
-		printf("Abra a conexao primeiro");
+		printf("\n Abra a conexão primeiro.");
 	}
     
     //
@@ -313,23 +351,22 @@ static void abrirGavetaOpc(void)
 {
     // TODO: chamar AbreGaveta(1, 5, 10)
     
-    if(g_conectada == 1){
+    system("cls");
+    
+    if(g_conectada == 1){ //ver se a impressora que esta conectada
     	
-    	int ret = ImpressaoCodigoBarras(8, "{A012345678912", 100, 2, 3);
-    	AvancaPapel(3);
-    	Corte(2);
-    	
+    		
+    	int ret = AbreGaveta (1, 5, 10);//variavel recebe todos parametros
     	
     	if(ret == 0){
-    		printf("Impressao OK");
+    		printf(" Gaveta aberta.");
 		}else{
-			printf("Erro. retorno %d\n", ret);
+			printf(" Erro ao abrir gaveta. Retorno: %d\n", ret);
 		}
     	
 	}else{
-		printf("Abra a conexao primeiro");
+		printf("\n Abra a conexão primeiro.");
 	}
-    
     //
     
 }
@@ -338,21 +375,20 @@ static void emitirSinalSonoro(void)
 {
     // TODO: chamar SinalSonoro(4, 50, 5)
     
-    if(g_conectada == 1){
+    system("cls");
+    
+    if(g_conectada == 1){ //ver se a impressora que esta conectada
     	
-    	int ret = ImpressaoCodigoBarras(8, "{A012345678912", 100, 2, 3);
-    	AvancaPapel(3);
-    	Corte(2);
-    	
+    	int ret = SinalSonoro(4, 5, 5); //variavel recebe todos parametros
     	
     	if(ret == 0){
-    		printf("Impressao OK");
+    		printf(" Sinal emitido!");
 		}else{
-			printf("Erro. retorno %d\n", ret);
+			printf(" Erro ao emitir sinal sonoro.\n Retorno: %d\n", ret);
 		}
     	
 	}else{
-		printf("Abra a conexao primeiro");
+		printf("\n Abra a conexão primeiro.");
 	}
     
     //
@@ -362,6 +398,8 @@ static void emitirSinalSonoro(void)
 /* ======================= Função principal ======================= */
 int main(void)
 {
+	
+	setlocale(LC_ALL, "Portuguese");
 	
     if (!carregarFuncoes()) {
         return 1;
@@ -381,14 +419,13 @@ int main(void)
         	case 2: //abrir conexão com a impressora
         	abrirConexao();
         	break;
-        	
+        		
         	case 3: //imprimir o texto
         	imprimirTexto();
         	break;
         	
         	case 4: //imprimir o QRCode
         	imprimirQRCode();
-        	Corte(4);
         	break;
         	
         	case 5: //impressão do Cod de Barra
@@ -417,10 +454,11 @@ int main(void)
         	
         	case 0: //configuração para fechar a conexão e sai
         	fecharConexao();
-        	return 0;
+        	break;
         	
         	default:  // Adicionado: para opções inválidas
-            printf("\n Opçao invalida! Digite um número entre 0 e 10.\n");
+        	system("cls");
+            printf("\n Opção inválida!\n Digite um numero entre 0 e 10.\n");
             break;
         	
 		}
