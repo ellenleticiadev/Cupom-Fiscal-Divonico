@@ -11,8 +11,7 @@ Este projeto é um sistema de atendimento de caixa (PDV) que se integra com impr
 Desenvolver um programa que simule um sistema de comunicação com impressoras de cupom fiscal da Elgin, aplicando conceitos fundamentais de programação como:
 - Funções da biblioteca da impressora Elgin
 - Laços de repetição
-- Estruturas condicionais
-- Funções personalizadas
+- Estruturas condicionais (switch case, if e else)
 
 ## Funcionalidades
 
@@ -54,7 +53,6 @@ O projeto utiliza as seguintes funções da biblioteca oficial Elgin:
 O sistema utiliza:
 - **Laços de Repetição**: Para manter o menu em execução até que o usuário encerrar e sair
 - **Estruturas Condicionais**: Para executar as diferentes ações baseadas na escolha do usuário
-- **Funções Personalizadas**: Para organizar e modularizar o código além das funções da biblioteca
 
 ## Como Usar o sistema
 
