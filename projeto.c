@@ -131,6 +131,7 @@ static void configurarConexao(void)
     system("cls");
 	
 	//Solicitamos ao usuario as informações de configuração
+	
 	printf("\n\n============== Configuração da impressora =====\n\n");
 	printf("\n==================================\n\n Digite o tipo de comunicação\n\n 1	USB\n 2	RS232\n 3	TCP/IP\n 4	Bluetooth\n 5	Impressoras acopladas(Android)\n\n: "); //Solicitamos ao usuario o tipo de comunicação
 	scanf("%d", &g_tipo);
@@ -152,18 +153,18 @@ static void abrirConexao(void)
     
     system("cls");
     printf("\n\n============== Abrir Conexao ==================\n\n");
-   if(g_conectada == 1){ // ver se a impressora que esta conectada
+   if(g_conectada == 1){ 		// Verificar se a impressora que está conectada
    	printf("\n\n A impressora está conectada\n");
 	} 
 	
-	//variavel recebe todos parametros
-	int ret = AbreConexaoImpressora(g_tipo, g_modelo, g_conexao, g_parametro);//validar a conexão com a impressora
+	//Variável recebe todos parâmetros
+	int ret = AbreConexaoImpressora(g_tipo, g_modelo, g_conexao, g_parametro);	//Validar a conexão com a impressora
 	if(ret == 0){ //se a conexão esta estabelecida
-		g_conectada = 1; //contados vai ser 1 que mostra q esta conectada
+		g_conectada = 1; //Quando a condicional é 1, a impressora está conectada
 		printf("\n\n Conexão estabelecida!\n");
 			InicializaImpressora();
 	}  else {
-		printf("\n\n Falha na conexão da impressora.\n Código de erro: %d\n", ret); //mostrar o erro de conexâo
+		printf("\n\n Falha na conexão da impressora.\n Código de erro: %d\n", ret); //Mostrar o erro de conexão
 	}
 }   
 
@@ -188,11 +189,11 @@ static void imprimirTexto(void)
 	
 	 printf("\n\n============== Impressao de texto =============\n\n");
 
-    if(g_conectada == 1){ //ver se a impressora que esta conectada
+    if(g_conectada == 1){ 							// Verificar se a impressora que está conectada
     	
     	printf(" Digite o texto: ");
-    	scanf(" %[^\n]s", texto); // Lê a linha inteira, incluindo espaços ate o enter
-    	int ret = ImpressaoTexto(texto, 1, 4, 0);//variavel recebe todos parametros
+    	scanf(" %[^\n]s", texto); 					// Lê a linha inteira, incluindo espaços ate o enter
+    	int ret = ImpressaoTexto(texto, 1, 4, 0);	//Variável recebe todos parâmetros
     	
 		AvancaPapel(3);
     	Corte(2);
@@ -200,7 +201,7 @@ static void imprimirTexto(void)
     	if(ret == 0){ //mostrar se a impressão esta tudo ok
     		printf(" Impressão OK.");
 		}else{
-			printf(" Erro.\n Retorno: %d\n", ret); //mostrar p redo de impressão
+			printf(" Erro.\n Retorno: %d\n", ret); //Retornar o erro da impressão
 		}
     	
 	}else{
@@ -218,12 +219,12 @@ static void imprimirQRCode(void)
 	
 	 printf("\n\n============== QRCODE =========================\n\n");
 	
-    if(g_conectada == 1){ //ver se a impressora que esta conectada
+    if(g_conectada == 1){ 						// Verificar se a impressora que está conectada
     	
     	printf(" Digite o texto: ");
     	scanf(" %[^\n]s", texto);
     	
-    	int ret = ImpressaoQRCode(texto, 6,4); //variavel recebe todos parametros
+    	int ret = ImpressaoQRCode(texto, 6,4);	//Variável recebe todos parâmetros
     	
     	AvancaPapel(3);
     	Corte(2);
@@ -247,9 +248,9 @@ static void imprimirCodigoBarras(void)
 	
 	 printf("\n\n============== Codigo de Barras ===============\n\n");
 	
-    if(g_conectada == 1){ //ver se a impressora que esta conectada
+    if(g_conectada == 1){ 		// Verificar se a impressora que está conectada
     	
-    	int ret = ImpressaoCodigoBarras(8, "{A012345678912", 100, 2, 3);//variavel recebe todos parametros
+    	int ret = ImpressaoCodigoBarras(8, "{A012345678912", 100, 2, 3);	//Variável recebe todos parâmetros
     	AvancaPapel(3);
     	Corte(2);
     	
@@ -276,9 +277,9 @@ static void imprimirXMLSAT(void)
     
      printf("\n\n============== XMLSAT =========================\n\n");
     
-    if(g_conectada == 1){ //ver se a impressora que esta conectada
+    if(g_conectada == 1){ 		// Verificar se a impressora que está conectada
     	
-    	int ret = ImprimeXMLSAT("path=XMLSAT.xml", 0);//variavel recebe todos parametros
+    	int ret = ImprimeXMLSAT("path=XMLSAT.xml", 0);	//Variável recebe todos parâmetros
     	AvancaPapel(3);
     	Corte(2);
     	
@@ -313,9 +314,9 @@ static void imprimirXMLCancelamentoSAT(void)
         
      printf("\n\n============== CANCELAMENTO XMLSAT ============\n\n"); 
 	    
-    if(g_conectada == 1){ //ver se a impressora que esta conectada
+    if(g_conectada == 1){ 		// Verificar se a impressora que está conectada
     	
-    	//variavel recebe todos parametros
+    	//Variável recebe todos parâmetros
     	int ret = ImprimeXMLCancelamentoSAT ("path=CANC_SAT.xml", "Q5DLkpdRijIRGY6YSSNsTWK1TztHL1vD0V1Jc4spo/CEUqICEb9SFy82ym8EhBRZjbh3btsZhF+sjHqEMR159i4agru9x6KsepK/q0E2e5xlU5cv3m1woYfgHyOkWDNcSdMsS6bBh2Bpq6s89yJ9Q6qh/J8YHi306ce9Tqb/drKvN2XdE5noRSS32TAWuaQEVd7u+TrvXlOQsE3fHR1D5f1saUwQLPSdIv01NF6Ny7jZwjCwv1uNDgGZONJdlTJ6p0ccqnZvuE70aHOI09elpjEO6Cd+orI7XHHrFCwhFhAcbalc+ZfO5b/+vkyAHS6CYVFCDtYR9Hi5qgdk31v23w==", 0);
     	AvancaPapel(3);
     	Corte(2);
@@ -343,9 +344,9 @@ static void abrirGavetaElginOpc(void)
 	
 	 printf("\n\n============== ABRIR GAVETA ELGIN ============\n\n");
     
-	if(g_conectada == 1){ //ver se a impressora que esta conectada
+	if(g_conectada == 1){ 		// Verificar se a impressora que está conectada
     	
-    	int ret = AbreGaveta (1, 50, 50);//variavel recebe todos parametros
+    	int ret = AbreGaveta (1, 50, 50);	//Variável recebe todos parâmetros
     	
     	if(ret == 0){
     		printf(" Gaveta aberta.");
@@ -369,10 +370,10 @@ static void abrirGavetaOpc(void)
     
      printf("\n\n============== ABRIR GAVETA ==================\n\n");
     
-    if(g_conectada == 1){ //ver se a impressora que esta conectada
+    if(g_conectada == 1){ 		// Verificar se a impressora que está conectada
     	
     		
-    	int ret = AbreGaveta (1, 5, 10);//variavel recebe todos parametros
+    	int ret = AbreGaveta (1, 5, 10);	//Variável recebe todos parâmetros
     	
     	if(ret == 0){
     		printf(" Gaveta aberta.");
@@ -395,9 +396,9 @@ static void emitirSinalSonoro(void)
     
      printf("\n\n============== SINAL SONORO ===================\n\n");
     
-    if(g_conectada == 1){ //ver se a impressora que esta conectada
+    if(g_conectada == 1){ 		// Verificar se a impressora que está conectada
     	
-    	int ret = SinalSonoro(4, 5, 5); //variavel recebe todos parametros
+    	int ret = SinalSonoro(4, 5, 5);	//Variável recebe todos parâmetros
     	
     	if(ret == 0){
     		printf(" Sinal emitido!");
@@ -468,7 +469,7 @@ int main(void)
         	abrirGavetaOpc();
         	break;
         	
-        	case 10:		//Configuração de Sinal Sonoro
+        	case 10:	//Configuração de Sinal Sonoro
         	emitirSinalSonoro();
         	break;
         	
