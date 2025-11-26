@@ -105,21 +105,22 @@ static int exibirMenu(void)
 {
 	
 	int opcao;
-    printf("\n\n============== Menu ==============\n\n");
+    printf("\n\n============== Menu ===========================\n\n");
         
-        printf(" 1 - Configurar Conexão\n");//mostrar a opcáo de Configurar conexa
-        printf(" 2 - Abrir Conexão\n");//mostrar a opcáo de Abrir Conexao
-        printf(" 3 - Impressão Texto\n");//mostrar a opcáo de Impressao Texto
-        printf(" 4 - Impressão QRCode\n");//mostrar a opcáo de Impressao QRCode
-        printf(" 5 - Impressão Cod Barras\n");//mostrar a opcáo de Impressao Cod Barras
-        printf(" 6 - Impressão XML SAT\n");//mostrar a opcáo de Impressao XML SAT
-        printf(" 7 - Impressão XML Canc SAT\n");//mostrar a opcáo de Impressao XML Canc SAT
-        printf(" 8 - Abrir Gaveta Elgin\n");//mostrar a opcáo de Abrir Gaveta Elgin
-        printf(" 9 - Abrir Gaveta\n");//mostrar a opcáo de Abrir Gaveta Sinal Sonoro
-        printf(" 10 - Sinal Sonoro\n\n");//mostrar a opcáo de Sinal Sonoro
-        printf(" 0 - Fechar Conexão e Sair\n");//mostrar a opcáo de Fechar Conexao e Sair
-        printf("\n==================================\n\n: ");
-        scanf("%d", &opcao);//recebe o numero digitado
+        printf(" 1 - Configurar Conexão\n");			//Mostrar a opção de Configurar Conexao
+        printf(" 2 - Abrir Conexão\n");					//Mostrar a opção de Abrir Conexao
+        printf(" 3 - Impressão Texto\n");				//Mostrar a opção de Impressao Texto
+        printf(" 4 - Impressão QRCode\n");				//Mostrar a opção de Impressao QRCode
+        printf(" 5 - Impressão Cod Barras\n");			//Mostrar a opção de Impressao Cod Barras
+        printf(" 6 - Impressão XML SAT\n");				//Mostrar a opção de Impressao XML SAT
+        printf(" 7 - Impressão XML Canc SAT\n");		//Mostrar a opção de Impressao XML Canc SAT
+        printf(" 8 - Abrir Gaveta Elgin\n");			//Mostrar a opção de Abrir Gaveta Elgin
+        printf(" 9 - Abrir Gaveta\n");					//Mostrar a opção de Abrir Gaveta
+        printf(" 10 - Sinal Sonoro\n\n");				//Mostrar a opção de Sinal Sonoro
+        printf(" 0 - Fechar Conexão e Sair\n");			//mostrar a opção de Fechar Conexao e Sair
+        printf("\n==============================================\n\n: ");
+        
+        scanf("%d", &opcao);							//Recebe a opção escolhida pelo usuário
         return opcao;
 }
 
@@ -130,6 +131,7 @@ static void configurarConexao(void)
     system("cls");
 	
 	//Solicitamos ao usuario as informações de configuração
+	printf("\n\n============== Configuração da impressora =====\n\n");
 	printf("\n==================================\n\n Digite o tipo de comunicação\n\n 1	USB\n 2	RS232\n 3	TCP/IP\n 4	Bluetooth\n 5	Impressoras acopladas(Android)\n\n: "); //Solicitamos ao usuario o tipo de comunicação
 	scanf("%d", &g_tipo);
 	printf("\n==================================\n\n Digite o modelo\n\n i7\n i7 Plus\n i8\n i9\n ix\n Fitpos\n BK-T681\n MP-4200 (Para modelos TH e ADV)\n MP-4200 HS\n MK\n MP-2800\n\n: ");//Solicitamos ao usuario o modelo
@@ -149,7 +151,7 @@ static void abrirConexao(void)
     // TODO: chamar AbreConexaoImpressora e validar retorno
     
     system("cls");
-    
+    printf("\n\n============== Abrir Conexao ==================\n\n");
    if(g_conectada == 1){ // ver se a impressora que esta conectada
    	printf("\n\n A impressora está conectada\n");
 	} 
@@ -183,6 +185,8 @@ static void imprimirTexto(void)
 {
 
 	system("cls");
+	
+	 printf("\n\n============== Impressao de texto =============\n\n");
 
     if(g_conectada == 1){ //ver se a impressora que esta conectada
     	
@@ -212,6 +216,8 @@ static void imprimirQRCode(void)
 	
 	system("cls");
 	
+	 printf("\n\n============== QRCODE =========================\n\n");
+	
     if(g_conectada == 1){ //ver se a impressora que esta conectada
     	
     	printf(" Digite o texto: ");
@@ -239,6 +245,8 @@ static void imprimirCodigoBarras(void)
 	
 	system("cls");
 	
+	 printf("\n\n============== Codigo de Barras ===============\n\n");
+	
     if(g_conectada == 1){ //ver se a impressora que esta conectada
     	
     	int ret = ImpressaoCodigoBarras(8, "{A012345678912", 100, 2, 3);//variavel recebe todos parametros
@@ -265,6 +273,8 @@ static void imprimirXMLSAT(void)
     // incluir AvancaPapel e Corte no final
     
     system("cls");
+    
+     printf("\n\n============== XMLSAT =========================\n\n");
     
     if(g_conectada == 1){ //ver se a impressora que esta conectada
     	
@@ -301,6 +311,8 @@ static void imprimirXMLCancelamentoSAT(void)
         
     system("cls");
         
+     printf("\n\n============== CANCELAMENTO XMLSAT ============\n\n"); 
+	    
     if(g_conectada == 1){ //ver se a impressora que esta conectada
     	
     	//variavel recebe todos parametros
@@ -328,6 +340,8 @@ static void abrirGavetaElginOpc(void)
     // TODO: chamar AbreGavetaElgin(1, 50, 50)
     
 	system("cls");
+	
+	 printf("\n\n============== ABRIR GAVETA ELGIN ============\n\n");
     
 	if(g_conectada == 1){ //ver se a impressora que esta conectada
     	
@@ -353,6 +367,8 @@ static void abrirGavetaOpc(void)
     
     system("cls");
     
+     printf("\n\n============== ABRIR GAVETA ==================\n\n");
+    
     if(g_conectada == 1){ //ver se a impressora que esta conectada
     	
     		
@@ -377,6 +393,8 @@ static void emitirSinalSonoro(void)
     
     system("cls");
     
+     printf("\n\n============== SINAL SONORO ===================\n\n");
+    
     if(g_conectada == 1){ //ver se a impressora que esta conectada
     	
     	int ret = SinalSonoro(4, 5, 5); //variavel recebe todos parametros
@@ -396,10 +414,12 @@ static void emitirSinalSonoro(void)
 }
 
 /* ======================= Função principal ======================= */
+
+
 int main(void)
 {
 	
-	setlocale(LC_ALL, "Portuguese");
+	setlocale(LC_ALL, "Portuguese");	//Muda a regiao do texto para Português Brasileiro
 	
     if (!carregarFuncoes()) {
         return 1;
@@ -412,51 +432,51 @@ int main(void)
         
         switch(opcao){
         	
-        	case 1: //configuração de conexão
+        	case 1:		//Configuração de conexão
 			configurarConexao();
         	break;
         	
-        	case 2: //abrir conexão com a impressora
+        	case 2:		//Abrir conexão com a impressora
         	abrirConexao();
         	break;
         		
-        	case 3: //imprimir o texto
+        	case 3:		//Imprimir o texto
         	imprimirTexto();
         	break;
         	
-        	case 4: //imprimir o QRCode
+        	case 4:		//Imprimir o QRCode
         	imprimirQRCode();
         	break;
         	
-        	case 5: //impressão do Cod de Barra
+        	case 5:		//Impressão do Cod de Barra
         	imprimirCodigoBarras();
         	break;
         	
-        	case 6: //impressão do XML SAT
+        	case 6:		//Impressão do XML SAT
         	imprimirXMLSAT();
         	break;
         	
-        	case 7: //impressão XML Canc SAT
+        	case 7:		//Impressão XML Canc SAT
         	imprimirXMLCancelamentoSAT();
         	break;
         	
-        	case 8: //configuração para abrir a Gaveta Elgin
+        	case 8:		//Configuração para abrir a Gaveta Elgin
         	abrirGavetaElginOpc();
         	break;
         	
-        	case 9: //configuração para abrir gaveta 
+        	case 9:		//Configuração para abrir gaveta 
         	abrirGavetaOpc();
         	break;
         	
-        	case 10: //cofiguração de sinal Sonoro
+        	case 10:		//Configuração de Sinal Sonoro
         	emitirSinalSonoro();
         	break;
         	
-        	case 0: //configuração para fechar a conexão e sai
+        	case 0:		//Fecha a conexão e sai
         	fecharConexao();
         	break;
         	
-        	default:  // Adicionado: para opções inválidas
+        	default:	// Caso o usuário escolha algum número diferente das opções do menu
         	system("cls");
             printf("\n Opção inválida!\n Digite um numero entre 0 e 10.\n");
             break;
