@@ -2,6 +2,14 @@
 
 Sistema de Ponto de Venda (PDV) simplificado com integração à impressora fiscal Elgin.
 
+## Autores
+
+- Ellen Leticia Correia
+- Gabriella Dias Ruas
+- Giovanna Borba Gomes
+- Matheus Reis
+- Nathan Reis
+
 ## Descrição do Projeto
 
 Este projeto é um sistema de atendimento de caixa (PDV) que se integra com impressoras fiscais da Elgin, desenvolvido como projeto final do segundo semestre do curso de Engenharia da Computação. O sistema oferece uma interface interativa para operações básicas da impressora, utilizando a biblioteca oficial da Elgin, demonstrando a aplicação prática dos conceitos de programação.
